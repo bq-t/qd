@@ -1,0 +1,98 @@
+body {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	min-height: 800px;
+	background-color: #34495e;
+}
+
+.form {
+	border-radius: 10px;
+	background-color: #3498db;
+	padding: 20px;
+	color: white;
+}
+
+.manipulators {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 7px;
+}
+.manipulators > input {
+	border: none;
+	border-radius: 7px;
+	padding: 10px;
+	margin-bottom: 15px;
+}
+
+.buttons input {
+	text-decoration: none;
+	color: white;
+	background-color: #34495e;
+	padding: 15px;
+	font-size: 14px;
+	height: 46px;
+	border: none;
+	border-radius: 15px;
+	margin: 0px 5px;
+	cursor: pointer;
+}
+
+.tasks {
+	font-size: 18px;
+}
+.task-name {
+	margin-bottom: 15px;
+}
+
+.login {
+	display: flex;
+	flex-direction: column;
+}
+.login > input {
+	border: none;
+	border-radius: 7px;
+	padding: 10px;
+	margin: 5px 0px;
+}
+.login > input[type = 'submit'] {
+	text-decoration: none;
+	color: white;
+	background-color: #34495e;
+	padding: 15px;
+	font-size: 14px;
+	height: 46px;
+	border: none;
+	border-radius: 15px;
+	margin: 0px;
+	margin-top: 10px;
+	cursor: pointer;
+}
+.login > div {
+	margin-bottom: 10px;
+}
+
+.bad-pass {
+	color: white;
+	font-weight: bold;
+	padding: 5px;
+	border-radius: 10px;
+	background-color: #ff6d69;
+	margin-top: 25px;
+}
+
+.error {
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: #ff6d69;
+	margin: 7px 0px;
+}
+
+.complete {
+	font-weight: bold;
+	color: #5cdb95;
+}
