@@ -40,7 +40,7 @@
 						echo "<div class='error'>Ошибка: вы не выбрали задачу из списка!</div>";
 				}
 				else if($_POST['Complete']) {
-					if(count($_POST['task'])) {
+					if($_POST['task'] != null) {
 						$mysql->query("UPDATE `tasks` SET `status` = '1' WHERE `id` = '$_POST[task]';");
 					}
 					else
