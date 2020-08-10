@@ -27,21 +27,27 @@
 
 				if($_POST['Add']) {
 					if(!empty($_POST['TaskName'])) {
-						$mysql->query("INSERT INTO `tasks` (`user_id`, `description`) VALUES ('$_SESSION[id]', '$_POST[TaskName]');");
+						$query = $mysql->prepare("INSERT INTO `tasks` (`user_id`, `description`) VALUES (?, ?);");
+						$query->bind_param('is', $_SESSION['id'], $_POST['TaskName']);
+						$query->execute();
 					}
 					else
 						echo "<div class='error'>Ошибка: вы не указали задачу!</div>";
 				}
 				else if($_POST['Delete']) {
 					if(count($_POST['task'])) {
-						$mysql->query("DELETE FROM `tasks` WHERE `id` = '$_POST[task]'");
+						$query = $mysql->prepare("DELETE FROM `tasks` WHERE `id` = ?");
+						$query->bind_param('s', $_POST['task']);
+						$query->execute();
 					}
 					else
 						echo "<div class='error'>Ошибка: вы не выбрали задачу из списка!</div>";
 				}
 				else if($_POST['Complete']) {
 					if($_POST['task'] != null) {
-						$mysql->query("UPDATE `tasks` SET `status` = '1' WHERE `id` = '$_POST[task]';");
+						$query = $mysql->prepare("UPDATE `tasks` SET `status` = '1' WHERE `id` = ?;");
+						$query->bind_param('s', $_POST['task']);
+						$query->execute();
 					}
 					else
 						echo "<div class='error'>Ошибка: вы не выбрали задачу из списка!</div>";

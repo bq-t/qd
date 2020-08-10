@@ -30,15 +30,28 @@
 				include_once 'php/connect.php';
 
 				$login = $_POST['login'];
-				$query = $mysql->query("SELECT * FROM `users` WHERE `login` = '$login'");
 
-				if(!$query->num_rows) {
+				$query = $mysql->prepare("SELECT * FROM `users` WHERE `login` = ?");
+				$query->bind_param('s', $login);
+				$query->execute();
+				$result = $query->get_result();
+
+
+				if(!$result->num_rows) {
 
 					$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-					$reg = $mysql->query("INSERT INTO `users` (`login`, `password`) VALUES ('$login', '$password');");
 
-					$id = $mysql->query("SELECT `id` FROM `users` WHERE `login` = '$login'");
-					$fetch = $id->fetch_array();
+					$reg = $mysql->prepare("INSERT INTO `users` (`login`, `password`) VALUES (? , ?);");
+					$reg->bind_param('ss', $login, $password);
+					$reg->execute();
+
+
+					$id = $mysql->prepare("SELECT `id` FROM `users` WHERE `login` = ?");
+					$id->bind_param('s', $login);
+					$id->execute();
+					$result = $id->get_result();
+
+					$fetch = $result->fetch_array();
 
 					$_SESSION['id'] = $fetch['id'];
 
@@ -46,8 +59,12 @@
 						'<script>location.href= "tasklist.php";</script>';
 				}
 				else {
-					$query = $mysql->query("SELECT `id`, `password` FROM `users` WHERE `login` = '$login'");
-					$fetch = $query->fetch_array();
+					$query = $mysql->prepare("SELECT `id`, `password` FROM `users` WHERE `login` = ?");
+					$query->bind_param('s', $login);
+					$query->execute();
+					$result = $query->get_result();
+
+					$fetch = $result->fetch_array();
 
 					if(password_verify($_POST['password'], $fetch['password'])) {
 						$_SESSION['id'] = $fetch['id'];
